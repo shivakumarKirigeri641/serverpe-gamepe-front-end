@@ -16,6 +16,8 @@ import { useI18n } from '../i18n/index.jsx';
 export default function Pricing({ plans }) {
   const { t, lang } = useI18n();
   const available = plans.filter((p) => p.available);
+  // Also filtered server-side. Kept here so a cached response from before the
+  // switch cannot surface a price that was never agreed.
   const soon = plans.filter((p) => !p.available);
 
   return (

@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal.jsx';
-import { FAQ } from '../content.js';
+import { useT } from '../i18n/index.jsx';
 
 export default function Faq() {
+  const t = useT();
+  const items = t('faq.items');
+
   const [open, setOpen] = useState(0);
 
   return (
     <section id="faq" className="py-16 sm:py-20">
       <div className="container-x max-w-3xl">
         <Reveal className="text-center">
-          <span className="eyebrow">Questions</span>
-          <h2 className="h2 mt-4">Things people ask</h2>
+          <span className="eyebrow">{t('faq.eyebrow')}</span>
+          <h2 className="h2 mt-4">{t('faq.title')}</h2>
         </Reveal>
 
         <div className="mt-8 space-y-3">
-          {FAQ.map((item, i) => (
+          {items.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.04}>
               <div className="card overflow-hidden">
                 <button

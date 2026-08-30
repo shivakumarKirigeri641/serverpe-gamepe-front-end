@@ -1,17 +1,22 @@
 import Reveal from '../components/Reveal.jsx';
-import { FEATURES } from '../content.js';
+import { useT } from '../i18n/index.jsx';
 
 export default function Features() {
+  const t = useT();
+  // Icons stay in the component: they are the same picture in both languages.
+  const icons = ['🎫', '📣', '⚖️', '👥', '🏆', '📄'];
+  const features = t('features.items').map((f, i) => ({ ...f, icon: icons[i] }));
+
   return (
     <section className="py-16 sm:py-20">
       <div className="container-x">
         <Reveal className="text-center max-w-2xl mx-auto">
-          <span className="eyebrow">Why it feels right</span>
-          <h2 className="h2 mt-4">Built like a real tambola evening</h2>
+          <span className="eyebrow">{t('features.eyebrow')}</span>
+          <h2 className="h2 mt-4">{t('features.title')}</h2>
         </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-          {FEATURES.map((f, i) => (
+          {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.06}>
               <div className="card p-6 h-full">
                 <div className="text-3xl">{f.icon}</div>

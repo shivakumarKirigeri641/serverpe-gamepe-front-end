@@ -25,6 +25,10 @@ async function get(path) {
 export const api = {
   business: () => get('/business'),
   plans: () => get('/plans'),
+  // Logo, icons and social images. Fetched rather than committed here so the
+  // mark is replaced in one place and every surface picks it up — this site,
+  // the admin panel and the game board all read the same manifest.
+  brand: () => get('/brand'),
   health: () => get('/health'),
 };
 

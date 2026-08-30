@@ -13,6 +13,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { BRAND, waLink } from '../content.js';
 import EntertainmentOnly from '../components/EntertainmentOnly.jsx';
+import { useT } from '../i18n/index.jsx';
 
 // A genuine ticket: three rows of five, columns banded 1-9, 10-19 … 80-90.
 const TICKET = [
@@ -23,14 +24,22 @@ const TICKET = [
 const CALLED = new Set([17, 26, 45, 61, 88, 8]);
 const LATEST = 45;
 
-function Ticket() {
+function Ticket({ brand }) {
+  const t = useT();
   const reduce = useReducedMotion();
 
   return (
     <div className="bg-white rounded-3xl shadow-lift overflow-hidden max-w-sm w-full">
       <div className="bg-gradient-to-br from-brand to-brand-deep text-white px-4 py-3 flex items-center justify-between">
-        <span className="font-extrabold tracking-wide">{BRAND.name}</span>
-        <span className="text-xs opacity-90">Room KFT7QM · Ticket 1</span>
+        {brand?.primary?.markLight ? (
+          <span className="flex items-center gap-2">
+            <img src={brand.primary.markLight} alt="" className="h-5 w-auto" aria-hidden="true" />
+            <span className="font-extrabold tracking-wide">{BRAND.name}</span>
+          </span>
+        ) : (
+          <span className="font-extrabold tracking-wide">{BRAND.name}</span>
+        )}
+        <span className="text-xs opacity-90">{t('hero.ticketRoom')}</span>
       </div>
 
       <div className="p-3 grid grid-cols-9 gap-1.5">
@@ -53,51 +62,51 @@ function Ticket() {
       </div>
 
       <div className="px-4 pb-4 flex items-center justify-between text-[11px] text-muted">
-        <span>6 of 15 marked</span>
-        <span>24 of 90 called</span>
+        <span>{t('hero.ticketMarked')}</span>
+        <span>{t('hero.ticketCalled')}</span>
       </div>
 
       <div className="border-t border-line px-4 py-3 flex items-center gap-2">
         <span className="text-2xl font-extrabold text-brand tabular-nums">45</span>
-        <span className="text-sm text-muted italic">halfway there</span>
+        <span className="text-sm text-muted italic">{t('hero.ticketNick')}</span>
       </div>
     </div>
   );
 }
 
-export default function Hero() {
+export default function Hero({ brand }) {
+  const t = useT();
+
   return (
     <section id="top" className="pt-28 pb-16 sm:pt-32 sm:pb-20">
       <div className="container-x grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <EntertainmentOnly />
-            <span className="eyebrow">Free to play</span>
+            <span className="eyebrow">{t('hero.eyebrow')}</span>
           </div>
 
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-brand leading-[1.08]">
-            {BRAND.tagline}
+            {t('hero.tagline')}
           </h1>
 
-          <p className="mt-4 text-lg sm:text-xl text-ink/80 font-medium">{BRAND.hero}</p>
-          <p className="mt-3 lede">{BRAND.sub}</p>
+          <p className="mt-4 text-lg sm:text-xl text-ink/80 font-medium">{t('hero.title')}</p>
+          <p className="mt-3 lede">{t('hero.sub')}</p>
 
           <div className="mt-7 flex flex-wrap gap-3">
             <a href={waLink('Hi')} className="btn-wa">
-              Play on WhatsApp
+              {t('hero.cta')}
             </a>
             <a href="#how" className="btn-ghost">
-              See how it works
+              {t('hero.secondary')}
             </a>
           </div>
 
-          <p className="mt-5 text-sm text-muted">
-            No app · No sign-up · No betting, no money
-          </p>
+          <p className="mt-5 text-sm text-muted">{t('hero.reassure')}</p>
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <Ticket />
+          <Ticket brand={brand} />
         </div>
       </div>
     </section>

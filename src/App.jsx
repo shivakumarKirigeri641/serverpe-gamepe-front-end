@@ -17,6 +17,8 @@ import { api, safe } from './lib/api.js';
 import { BRAND, WHATSAPP_DISPLAY, waLink } from './content.js';
 
 import Header from './components/Header.jsx';
+import LanguageChooser from './components/LanguageChooser.jsx';
+import { useI18n } from './i18n/index.jsx';
 import { EntertainmentBanner } from './components/EntertainmentOnly.jsx';
 import Footer from './components/Footer.jsx';
 import Hero from './sections/Hero.jsx';
@@ -41,18 +43,22 @@ const FALLBACK_PLANS = [
 ];
 
 export default function App() {
+  const { t, lang } = useI18n();
   const [business, setBusiness] = useState(null);
   const [plans, setPlans] = useState(FALLBACK_PLANS);
+  const [brand, setBrand] = useState(null);
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      const [b, p] = await Promise.all([
+      const [b, p, br] = await Promise.all([
         safe(api.business, null),
         safe(api.plans, FALLBACK_PLANS),
+        safe(api.brand, null),
       ]);
       if (!alive) return;
       setBusiness(b);
+      setBrand(br);
       if (Array.isArray(p) && p.length) setPlans(p);
     })();
     return () => {
@@ -63,16 +69,35 @@ export default function App() {
   return (
     <>
       <Helmet>
+        <html lang={lang} />
         <title>
-          {BRAND.name} — {BRAND.hero}
+          {BRAND.name} — {t('hero.title')}
         </title>
         <meta
           name="description"
-          content={`${BRAND.tagline} Play Tambola with your friends on WhatsApp. No app, no sign-up, free to play. Entertainment only — no betting, no money.`}
+          content={`${t('hero.tagline')} ${t('hero.sub')} ${t('entertainment.banner')}`}
         />
-        <meta property="og:title" content={`${BRAND.name} — ${BRAND.tagline}`} />
-        <meta property="og:description" content={BRAND.hero} />
+        <meta property="og:title" content={`${BRAND.name} — ${t('hero.tagline')}`} />
+        <meta property="og:description" content={t('hero.title')} />
+        <meta property="og:locale" content={lang === 'hi' ? 'hi_IN' : 'en_IN'} />
         <meta property="og:type" content="website" />
+        {/* Images come from the back-end, so replacing the logo there updates
+            the link preview without a deploy here. Rendered only once the
+            manifest has arrived; a half-written og:image is worse than none,
+            because crawlers cache what they see first. */}
+        {brand?.primary?.openGraph && (
+          <meta property="og:image" content={brand.primary.openGraph} />
+        )}
+        {brand?.primary?.openGraph && <meta property="og:image:width" content="1200" />}
+        {brand?.primary?.openGraph && <meta property="og:image:height" content="630" />}
+        {brand?.primary?.twitter && <meta name="twitter:card" content="summary_large_image" />}
+        {brand?.primary?.twitter && <meta name="twitter:image" content={brand.primary.twitter} />}
+        {brand?.primary?.favicon && (
+          <link rel="icon" type="image/png" sizes="32x32" href={brand.primary.favicon} />
+        )}
+        {brand?.primary?.appleTouchIcon && (
+          <link rel="apple-touch-icon" sizes="180x180" href={brand.primary.appleTouchIcon} />
+        )}
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
@@ -95,10 +120,11 @@ export default function App() {
         </script>
       </Helmet>
 
-      <Header />
+      <LanguageChooser />
+      <Header brand={brand} />
 
       <main>
-        <Hero />
+        <Hero brand={brand} />
         <EntertainmentBanner />
         <HowItWorks />
         <Prizes />
@@ -110,15 +136,15 @@ export default function App() {
         <EntertainmentBanner />
       </main>
 
-      <Footer business={business} />
+      <Footer business={business} brand={brand} />
 
       {/* Always-reachable action on a phone, where the header button scrolls away. */}
       <a
         href={waLink('Hi')}
         className="sm:hidden fixed bottom-4 inset-x-4 z-30 btn-wa shadow-lift"
-        aria-label={`Play on WhatsApp, ${WHATSAPP_DISPLAY}`}
+        aria-label={`${t('hero.cta')}, ${WHATSAPP_DISPLAY}`}
       >
-        Play on WhatsApp
+        {t('hero.cta')}
       </a>
     </>
   );

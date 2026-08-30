@@ -11,8 +11,10 @@ import Reveal from '../components/Reveal.jsx';
 import { waLink } from '../content.js';
 import { policiesUrl } from '../lib/api.js';
 import EntertainmentOnly from '../components/EntertainmentOnly.jsx';
+import { useI18n } from '../i18n/index.jsx';
 
 export default function Pricing({ plans }) {
+  const { t, lang } = useI18n();
   const available = plans.filter((p) => p.available);
   const soon = plans.filter((p) => !p.available);
 
@@ -21,29 +23,26 @@ export default function Pricing({ plans }) {
       <div className="container-x">
         <Reveal className="text-center max-w-2xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="eyebrow">Pricing</span>
+            <span className="eyebrow">{t('pricing.eyebrow')}</span>
             <EntertainmentOnly size="sm" />
           </div>
-          <h2 className="h2 mt-4">Free while we are finding our feet</h2>
-          <p className="lede mt-3">
-            Play as much as you like during the trial. We will tell you clearly before anything
-            changes.
-          </p>
+          <h2 className="h2 mt-4">{t('pricing.title')}</h2>
+          <p className="lede mt-3">{t('pricing.sub')}</p>
         </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
           {available.map((p, i) => (
             <Reveal key={p.key} delay={i * 0.07}>
               <div className="card p-7 h-full border-2 border-brand relative">
-                <span className="absolute -top-3 left-6 eyebrow bg-brand text-white">Available now</span>
+                <span className="absolute -top-3 left-6 eyebrow bg-brand text-white">{t('pricing.availableNow')}</span>
                 <h3 className="font-extrabold text-2xl text-brand mt-2">{p.name}</h3>
                 <div className="text-4xl font-extrabold mt-3">{p.price}</div>
                 <p className="text-muted text-sm mt-3 leading-relaxed">{p.tagline}</p>
                 <p className="text-sm mt-4">
-                  <strong>Up to {p.maxPlayers} players</strong> per game
+                  <strong>{t('pricing.upTo', { n: p.maxPlayers })}</strong> {t('pricing.perGame')}
                 </p>
                 <a href={waLink('Hi')} className="btn-wa w-full mt-6">
-                  Start playing
+                  {t('pricing.start')}
                 </a>
               </div>
             </Reveal>
@@ -52,15 +51,15 @@ export default function Pricing({ plans }) {
           {soon.map((p, i) => (
             <Reveal key={p.key} delay={(available.length + i) * 0.07}>
               <div className="card p-7 h-full opacity-75">
-                <span className="eyebrow bg-line text-muted">Coming soon</span>
+                <span className="eyebrow bg-line text-muted">{t('pricing.comingSoon')}</span>
                 <h3 className="font-extrabold text-2xl mt-3">{p.name}</h3>
                 <div className="text-4xl font-extrabold mt-3 text-muted">{p.price}</div>
                 <p className="text-muted text-sm mt-3 leading-relaxed">{p.tagline}</p>
                 <p className="text-sm mt-4 text-muted">
-                  <strong>Up to {p.maxPlayers} players</strong> per game
+                  <strong>{t('pricing.upTo', { n: p.maxPlayers })}</strong> {t('pricing.perGame')}
                 </p>
                 <button className="btn-ghost w-full mt-6 cursor-default" disabled>
-                  Not available yet
+                  {t('pricing.notYet')}
                 </button>
               </div>
             </Reveal>
@@ -69,20 +68,15 @@ export default function Pricing({ plans }) {
 
         <Reveal className="mt-10">
           <div className="card p-6 max-w-3xl mx-auto bg-gold/5 border-gold/40">
-            <h3 className="font-extrabold text-lg">How paying will work</h3>
-            <p className="text-muted text-sm mt-2 leading-relaxed">
-              When paid plans begin, MastiPe will run on <strong>credits</strong>. Credits are only
-              spent when a game <em>actually starts calling numbers</em> — creating a room is free,
-              and pressing Start is free. If nobody joins your game, nothing is deducted and your
-              credits stay in your wallet for next time.
-            </p>
+            <h3 className="font-extrabold text-lg">{t('pricing.creditsTitle')}</h3>
+            <p className="text-muted text-sm mt-2 leading-relaxed">{t('pricing.creditsBody')}</p>
             <a
-              href={policiesUrl}
+              href={`${policiesUrl}?lang=${lang}`}
               target="_blank"
               rel="noopener"
               className="text-sm font-bold text-brand hover:underline mt-3 inline-block"
             >
-              Read the full payments &amp; refunds policy →
+              {t('pricing.readPolicy')}
             </a>
           </div>
         </Reveal>

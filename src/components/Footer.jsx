@@ -20,9 +20,12 @@ export default function Footer({ business, brand }) {
         <div className="grid sm:grid-cols-3 gap-8">
           <div>
             <div className="text-white font-extrabold text-xl">{BRAND.name}</div>
-            <p className="text-sm mt-2 leading-relaxed">{t('hero.tagline')}</p>
+            {/* The brand's own line, from the back-end manifest — the same
+                words that sit under the logo and in the link preview. The hero
+                is free to say something more specific; this is the constant. */}
+            <p className="text-sm mt-2 leading-relaxed">{brand?.tagline || t('hero.tagline')}</p>
             <a href={waLink('Hi')} className="btn-wa mt-4 !px-5 !py-2.5 !text-sm">
-              Play on WhatsApp
+              {t('hero.cta')}
             </a>
           </div>
 

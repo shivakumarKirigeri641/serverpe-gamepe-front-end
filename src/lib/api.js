@@ -24,7 +24,9 @@ async function get(path) {
 
 export const api = {
   business: () => get('/business'),
-  plans: () => get('/plans'),
+  // Plan names, taglines and the word "Free" all differ by language, so the
+  // language travels with the request rather than being patched on afterwards.
+  plans: (lang = 'en') => get(`/plans?lang=${lang === 'hi' ? 'hi' : 'en'}`),
   // Logo, icons and social images. Fetched rather than committed here so the
   // mark is replaced in one place and every surface picks it up — this site,
   // the admin panel and the game board all read the same manifest.

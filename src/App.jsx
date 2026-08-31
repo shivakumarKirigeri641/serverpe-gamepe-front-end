@@ -53,7 +53,7 @@ export default function App() {
     (async () => {
       const [b, p, br] = await Promise.all([
         safe(api.business, null),
-        safe(api.plans, FALLBACK_PLANS),
+        safe(() => api.plans(lang), FALLBACK_PLANS),
         safe(api.brand, null),
       ]);
       if (!alive) return;
@@ -64,7 +64,7 @@ export default function App() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [lang]);
 
   return (
     <>
@@ -130,7 +130,7 @@ export default function App() {
         <Prizes />
         <Trust />
         <Features />
-        <Pricing plans={plans} />
+        <Pricing plans={plans} business={business} />
         <Faq />
         <CallToAction />
         <EntertainmentBanner />

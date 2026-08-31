@@ -1,8 +1,10 @@
 import Reveal from '../components/Reveal.jsx';
-import { useT } from '../i18n/index.jsx';
+import { useI18n, useT } from '../i18n/index.jsx';
+import { demoUrl } from '../lib/api.js';
 
 export default function Prizes() {
   const t = useT();
+  const { lang } = useI18n();
   const prizes = t('prizes.items');
 
   return (
@@ -11,9 +13,7 @@ export default function Prizes() {
         <Reveal className="text-center max-w-2xl mx-auto">
           <span className="eyebrow">{t('prizes.eyebrow')}</span>
           <h2 className="h2 mt-4">{t('prizes.title')}</h2>
-          <p className="lede mt-3">
-            The same six every housie evening has always had. Full House ends the game.
-          </p>
+          <p className="lede mt-3">{t('prizes.lede')}</p>
         </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
@@ -33,10 +33,15 @@ export default function Prizes() {
         </div>
 
         <Reveal className="mt-8">
-          <p className="text-center text-sm text-muted max-w-xl mx-auto">
-            Every claim is checked by our servers against the numbers actually called. The first
-            valid claim wins, and a claim that is not yet complete is simply refused.
-          </p>
+          <p className="text-center text-sm text-muted max-w-xl mx-auto">{t('prizes.note')}</p>
+
+          {/* A prize is a shape on a ticket, and a sentence is a poor way to
+              draw one. The demo shows the squares each prize needs. */}
+          <div className="text-center mt-6">
+            <a href={demoUrl(lang)} target="_blank" rel="noreferrer" className="btn-ghost">
+              {t('prizes.demoCta')}
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>

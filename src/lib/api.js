@@ -35,6 +35,16 @@ export const api = {
 export const policiesUrl = `${API_BASE}${PUBLIC_PATH}/policies`;
 
 /**
+ * The interactive how-to-play page, served by the back-end.
+ *
+ * Kept there rather than rebuilt here so there is one explanation of the rules,
+ * not two that drift: the same page is what the bot sends when somebody asks
+ * "how do I play" inside WhatsApp.
+ */
+export const demoUrl = (lang) =>
+  `${API_BASE}${PUBLIC_PATH}/demo${lang === 'hi' ? '?lang=hi' : ''}`;
+
+/**
  * Runs a fetch and falls back to a sensible default.
  *
  * A marketing page must render even when the API is down or still waking up —

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BRAND, waLink } from '../content.js';
-import { useT } from '../i18n/index.jsx';
+import { useI18n, useT } from '../i18n/index.jsx';
+import { demoUrl } from '../lib/api.js';
 import { LanguageSwitch } from './LanguageChooser.jsx';
 
 // Keys, not labels: the anchors are fixed, the words are not.
@@ -13,6 +14,7 @@ const LINKS = [
 
 export default function Header({ brand }) {
   const t = useT();
+  const { lang } = useI18n();
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -54,6 +56,14 @@ export default function Header({ brand }) {
               {t(key)}
             </a>
           ))}
+          <a
+            href={demoUrl(lang)}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-semibold text-ink/80 hover:text-brand"
+          >
+            {t('nav.demo')}
+          </a>
           <LanguageSwitch />
           <a href={waLink('Hi')} className="btn-wa !px-5 !py-2.5 !text-sm">
             {t('nav.play')}
@@ -77,6 +87,15 @@ export default function Header({ brand }) {
               {t(key)}
             </a>
           ))}
+          <a
+            href={demoUrl(lang)}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setOpen(false)}
+            className="block text-sm font-semibold py-1"
+          >
+            {t('nav.demo')}
+          </a>
           <LanguageSwitch className="w-full !py-2.5 block" />
           <a href={waLink('Hi')} className="btn-wa w-full">
             {t('nav.play')}

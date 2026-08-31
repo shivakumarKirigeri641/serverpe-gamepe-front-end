@@ -25,6 +25,7 @@ export const en = {
     prizes: 'Prizes',
     pricing: 'Pricing',
     faq: 'Questions',
+    demo: 'Demo',
     play: 'Play now',
     menu: 'Menu',
   },
@@ -58,11 +59,18 @@ export const en = {
       { title: 'Friends tap and join', body: 'One tap opens WhatsApp with the join message ready. They press send and they are in.' },
       { title: 'Play on your own board', body: 'Numbers are called every few seconds. Your ticket fills in live on your own screen — find the number, tap, claim your prize.' },
     ],
+    demoTitle: 'Rather see it than read it?',
+    demoBody:
+      'Watch a round play out, see the chat from the first hi to the first number, and what each prize means on a real ticket.',
+    demoCta: 'Watch the demo',
   },
 
   prizes: {
     eyebrow: 'Six prizes',
     title: 'Exactly the prizes you already know',
+    lede: 'The same six every housie evening has always had. Full House ends the game.',
+    note: 'Every claim is checked by our servers against the numbers actually called. The first valid claim wins, and a claim that is not yet complete is simply refused.',
+    demoCta: 'See each prize on a real ticket',
     items: [
       { name: 'Early Five', body: 'First five numbers marked on your ticket.' },
       { name: 'Top Line', body: 'The whole first row.' },

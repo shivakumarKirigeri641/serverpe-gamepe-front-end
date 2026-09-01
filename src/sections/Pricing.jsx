@@ -19,52 +19,40 @@ import EntertainmentOnly from '../components/EntertainmentOnly.jsx';
 import { useI18n } from '../i18n/index.jsx';
 
 /**
- * Turns the flat plan list into one row per room size.
+ * The day passes, cheapest band first.
  *
- * Keyed off maxPlayers rather than the plan key, so a band added or renamed in
- * the admin panel appears here without a deploy. A size with only one of the
- * two products still gets a row, with the missing cell left blank.
+ * Only the 24-hour passes: MastiPe does not charge per game, and listing a
+ * per-game price beside a day pass invites the reader to work out whether two
+ * games are cheaper separately. One price, one decision.
+ *
+ * Read from the API rather than written here, so a price changed in the admin
+ * panel is live on the site with no deploy, and the page can never advertise
+ * something the product would refuse to sell.
  */
-function toRows(plans) {
-  const rows = new Map();
-  for (const p of plans) {
-    const kind = p.key?.startsWith('single_') ? 'single' : p.key?.startsWith('unlimited_') ? 'pass' : null;
-    if (!kind || !p.maxPlayers) continue;
-    const row = rows.get(p.maxPlayers) ?? { players: p.maxPlayers };
-    // listPrice is the real price; `price` reads "Free" while the trial runs.
-    row[kind] = p.listPrice || p.price;
-    row[`${kind}Paise`] = p.pricePaise;
-    rows.set(p.maxPlayers, row);
-  }
-  return [...rows.values()].sort((a, b) => a.players - b.players);
-}
-
-/** How much cheaper a day of games is than buying two single games. */
-function saving(row) {
-  if (!row.singlePaise || !row.passPaise) return null;
-  const two = row.singlePaise * 2;
-  const pct = Math.round(((two - row.passPaise) / two) * 100);
-  return pct >= 5 ? pct : null;
+function dayPasses(plans) {
+  return plans
+    .filter((p) => p.key?.startsWith('unlimited_') && p.maxPlayers)
+    .sort((a, b) => a.maxPlayers - b.maxPlayers);
 }
 
 /**
- * The trial's end date, in the reader's language.
+ * What one seat costs at the top of the band.
  *
- * The back-end sends both the raw instant and an English label; formatting the
- * instant here is what lets the Hindi page say the date in Hindi. The label is
- * the fallback for a browser with no ICU data for hi-IN.
+ * The honest denominator is the band's maximum: it is what the buyer is paying
+ * for, and quoting anything lower would flatter the number.
  */
-function trialDate(trial, lang) {
-  if (!trial?.endsAt) return trial?.label ?? null;
-  try {
-    return new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', {
-      timeZone: 'Asia/Kolkata',
-      day: 'numeric',
-      month: 'long',
-    }).format(new Date(trial.endsAt));
-  } catch {
-    return trial.label ?? null;
-  }
+function perPlayer(plan) {
+  if (!plan.pricePaise || !plan.maxPlayers) return null;
+  // Divided in paise and rounded as an integer: ₹509 across 200 players is
+  // 254.5 paise, and toFixed on the float form rounds it down to ₹2.54.
+  const paise = Math.round(plan.pricePaise / plan.maxPlayers);
+  return `₹${(paise / 100).toFixed(2)}`;
+}
+
+/** `₹1,009` — Indian grouping, which the API's plain string does not carry. */
+function rupees(plan) {
+  if (typeof plan.pricePaise !== 'number') return plan.listPrice;
+  return `₹${(plan.pricePaise / 100).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 }
 
 export default function Pricing({ plans, business }) {
@@ -72,7 +60,17 @@ export default function Pricing({ plans, business }) {
   const trialInfo = business?.trial ?? null;
   const trialDay = trialDate(trialInfo, lang);
   const trial = plans.find((p) => p.key === 'free_trial' && p.available);
-  const rows = toRows(plans);
+  const rows = dayPasses(plans);
+
+  // Band names are marketing copy, so they live in the dictionaries and
+  // translate; the prices and player counts come from the API.
+  const names = t('pricing.bands') || {};
+  const bandName = (max) => names[max] || `${max}`;
+
+  // Prices appear only once the free trial has ended. Until the API answers,
+  // assume the trial is running: showing a price list for a moment and then
+  // hiding it is worse than showing it a moment late.
+  const showPrices = Boolean(trialInfo?.over);
 
   return (
     <section id="pricing" className="py-16 sm:py-20">
@@ -111,9 +109,14 @@ export default function Pricing({ plans, business }) {
           </Reveal>
         )}
 
-        {rows.length > 0 && (
+        {/* While the trial runs there is nothing to buy, so the price list is
+            not shown: a table of prices beside "it's free" only invites the
+            reader to work out what they will owe later, which is not the
+            decision this page is asking them to make. It reappears by itself
+            the day the trial ends — the date is the one in the admin panel. */}
+        {showPrices && rows.length > 0 && (
           <Reveal className="mt-10">
-            <div className="card max-w-2xl mx-auto overflow-hidden">
+            <div className="card max-w-3xl mx-auto overflow-hidden">
               <div className="p-6 pb-3 text-center">
                 <h3 className="font-extrabold text-lg">{t('pricing.tableTitle')}</h3>
                 <p className="text-muted text-sm mt-1">{t('pricing.tableSub')}</p>
@@ -122,26 +125,42 @@ export default function Pricing({ plans, business }) {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-muted">
-                      <th className="font-semibold px-6 py-2">{t('pricing.colPlayers')}</th>
-                      <th className="font-semibold px-3 py-2 text-right">{t('pricing.colSingle')}</th>
-                      <th className="font-semibold px-6 py-2 text-right">{t('pricing.colPass')}</th>
+                    <tr className="text-left text-muted border-b border-line">
+                      <th className="font-semibold px-6 py-2">{t('pricing.colBand')}</th>
+                      <th className="font-semibold px-3 py-2">{t('pricing.colPlayers')}</th>
+                      <th className="font-semibold px-3 py-2 text-right">{t('pricing.colPrice')}</th>
+                      <th className="font-semibold px-6 py-2 text-right">
+                        {t('pricing.colPerPlayer')}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((r) => {
-                      const pct = saving(r);
+                    {rows.map((p) => {
+                      // One band is marked, because a list of eight prices with
+                      // nothing recommended is a decision handed back to the reader.
+                      const popular = p.maxPlayers === 50;
                       return (
-                        <tr key={r.players} className="border-t border-line">
-                          <td className="px-6 py-2.5 font-semibold">{t('pricing.upTo', { n: r.players })}</td>
-                          <td className="px-3 py-2.5 text-right tabular-nums">{r.single ?? '—'}</td>
-                          <td className="px-6 py-2.5 text-right tabular-nums">
-                            <span className="font-bold">{r.pass ?? '—'}</span>
-                            {pct && (
-                              <span className="block text-[11px] font-bold text-good">
-                                {t('pricing.save', { n: pct })}
+                        <tr
+                          key={p.key}
+                          className={`border-t border-line ${popular ? 'bg-gold/10' : ''}`}
+                        >
+                          <td className="px-6 py-2.5 font-semibold whitespace-nowrap">
+                            {popular && <span className="text-gold mr-1">★</span>}
+                            {bandName(p.maxPlayers)}
+                            {popular && (
+                              <span className="ml-2 text-[11px] font-extrabold text-gold uppercase">
+                                {t('pricing.popular')}
                               </span>
                             )}
+                          </td>
+                          <td className="px-3 py-2.5 tabular-nums whitespace-nowrap">
+                            {p.minPlayers || 1}–{p.maxPlayers}
+                          </td>
+                          <td className="px-3 py-2.5 text-right tabular-nums font-bold">
+                            {rupees(p)}
+                          </td>
+                          <td className="px-6 py-2.5 text-right tabular-nums text-muted">
+                            {perPlayer(p) ?? '—'}
                           </td>
                         </tr>
                       );
@@ -153,6 +172,21 @@ export default function Pricing({ plans, business }) {
               <p className="px-6 py-4 text-xs text-muted leading-relaxed border-t border-line">
                 {t('pricing.gstNote')}
               </p>
+            </div>
+          </Reveal>
+        )}
+
+        {!showPrices && (
+          <Reveal className="mt-10">
+            <div className="card max-w-2xl mx-auto p-8 text-center border-2 border-good/40 bg-good/5">
+              <span className="eyebrow bg-good/15 text-good">{t('pricing.freeBadge')}</span>
+              <h3 className="h2 mt-4 !text-2xl sm:!text-3xl">
+                {trialDay ? t('pricing.freeTitle', { date: trialDay }) : t('pricing.title')}
+              </h3>
+              <p className="text-muted mt-3 leading-relaxed">{t('pricing.freeBody')}</p>
+              <a href={waLink('Hi')} className="btn-wa mt-6">
+                {t('pricing.start')}
+              </a>
             </div>
           </Reveal>
         )}

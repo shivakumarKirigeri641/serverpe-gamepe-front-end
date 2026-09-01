@@ -37,8 +37,8 @@ const FALLBACK_PLANS = [
     key: 'free_trial',
     name: 'Free Trial',
     price: 'Free',
-    tagline: 'Free to play. Up to 30 players.',
-    maxPlayers: 30,
+    tagline: 'Free to play. Up to 50 players.',
+    maxPlayers: 50,
     available: true,
   },
 ];

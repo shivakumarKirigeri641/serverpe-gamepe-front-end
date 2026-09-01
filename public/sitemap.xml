@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One page, deliberately.
+
+  The site is a single scrolling page, so listing #how or #pricing here would be
+  telling a crawler about anchors it already has. The Hindi version is the same
+  URL with the language chosen in the page, so it is declared as an alternate
+  rather than a second entry.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://mastipe.in/</loc>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://mastipe.in/"/>
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://mastipe.in/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mastipe.in/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

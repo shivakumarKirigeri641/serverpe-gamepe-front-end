@@ -1,0 +1,13 @@
+# mastipe.in — the public marketing site.
+#
+# Everything here is meant to be found. The parts of the product that are not
+# public live on api.mastipe.in, which has its own robots.txt and marks the
+# private pages noindex as well.
+
+User-agent: *
+Allow: /
+
+# The interactive how-to-play page and the policies are served by the API, so
+# they are listed in the sitemap on that host rather than this one.
+Sitemap: https://mastipe.in/sitemap.xml
+Sitemap: https://api.mastipe.in/serverpe/platform/mastipe/v1/public/sitemap.xml

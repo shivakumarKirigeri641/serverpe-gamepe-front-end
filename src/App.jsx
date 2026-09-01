@@ -27,6 +27,7 @@ import Prizes from './sections/Prizes.jsx';
 import Features from './sections/Features.jsx';
 import Trust from './sections/Trust.jsx';
 import Pricing from './sections/Pricing.jsx';
+import Testimonials from './sections/Testimonials.jsx';
 import Faq from './sections/FAQ.jsx';
 import CallToAction from './sections/CallToAction.jsx';
 
@@ -131,6 +132,7 @@ export default function App() {
         <Trust />
         <Features />
         <Pricing plans={plans} business={business} />
+        <Testimonials />
         <Faq />
         <CallToAction />
         <EntertainmentBanner />

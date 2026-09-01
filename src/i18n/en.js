@@ -151,6 +151,12 @@ export const en = {
     readPolicy: 'Read the full payments & refunds policy →',
   },
 
+  testimonials: {
+    eyebrow: 'From players',
+    title: 'What people said after their game',
+    lede: 'Real comments left after a real game, published with permission.',
+  },
+
   faq: {
     eyebrow: 'Questions',
     title: 'Things people ask',

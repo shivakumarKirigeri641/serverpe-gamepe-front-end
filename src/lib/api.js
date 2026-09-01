@@ -31,6 +31,9 @@ export const api = {
   // mark is replaced in one place and every surface picks it up — this site,
   // the admin panel and the game board all read the same manifest.
   brand: () => get('/brand'),
+  // Player comments an operator has approved for publication. Never all
+  // feedback — only what was explicitly published from the admin panel.
+  testimonials: () => get('/testimonials'),
   health: () => get('/health'),
 };
 

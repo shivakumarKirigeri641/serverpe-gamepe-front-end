@@ -173,6 +173,18 @@ export const en = {
     lede: 'Real comments left after a real game, published with permission.',
   },
 
+  policies: {
+    title: 'Policies & terms',
+    lede: 'The rules you accept before your first game, in plain language. Every word here is what the product actually does.',
+    loading: 'Loading…',
+    version: 'Version {n}',
+    all: 'All policies',
+    contact: 'Questions about any of this? Message us on',
+    notTranslated: 'The Hindi version of this document has not been written yet, so the English text is shown. English is the legally operative version in every case.',
+    missingTitle: 'No such policy',
+    missingBody: 'That link points at a document we do not have. It may have been renamed.',
+  },
+
   faq: {
     eyebrow: 'Questions',
     title: 'Things people ask',
@@ -200,6 +212,12 @@ export const en = {
     getInTouch: 'Get in touch',
     legal: 'Legal',
     policies: 'Policies & terms',
+    legal: 'Policies',
+    grievanceTitle: 'Grievance Officer',
+    grievanceBody:
+      'If something about the service or your data is not right, write to the Grievance Officer. We acknowledge within 48 hours and resolve within 30 days, as required under the Information Technology Rules, 2021.',
+    deleteData: 'To delete your account and data, write to {email} from the number you play on.',
+
     messageUs: 'Message us on WhatsApp',
     quizpe: 'QuizPe — daily maths revision',
     gstin: 'GSTIN',

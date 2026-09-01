@@ -6,13 +6,35 @@
  * get wrong, and they are legally required to be accurate.
  */
 
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BRAND, waLink } from '../content.js';
 import { useI18n } from '../i18n/index.jsx';
-import { policiesUrl } from '../lib/api.js';
+import { api, policiesUrl, safe } from '../lib/api.js';
 
 export default function Footer({ business, brand }) {
   const { t, lang } = useI18n();
   const year = new Date().getFullYear();
+
+  // Every policy listed by name, not one link called "policies". A reader
+  // looking for the refund terms or the data deletion route should see it in
+  // the footer and reach it in one tap — and Meta, Razorpay and the app stores
+  // all ask for a direct link to a specific document rather than to an index.
+  const [docs, setDocs] = useState([]);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const rows = await safe(() => api.legal(lang), []);
+      if (alive && Array.isArray(rows)) setDocs(rows);
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [lang]);
+
+  const officer = business?.ownerName || 'Shivakumar K';
+  const email = business?.supportEmail || 'support@mastipe.in';
 
   return (
     <footer className="bg-ink text-white/70 py-12">
@@ -63,9 +85,9 @@ export default function Footer({ business, brand }) {
                 </a>
               </li>
               <li>
-                <a href={`${policiesUrl}?lang=${lang}`} target="_blank" rel="noopener" className="hover:text-white">
+                <Link to={policiesUrl} className="hover:text-white">
                   {t('footer.policies')}
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="https://quizpe.in" target="_blank" rel="noopener" className="hover:text-white">
@@ -74,9 +96,43 @@ export default function Footer({ business, brand }) {
               </li>
             </ul>
           </div>
+
+          <div>
+            <div className="text-white font-bold text-sm mb-3">{t('footer.legal')}</div>
+            <ul className="text-sm space-y-2">
+              {docs.map((d) => (
+                <li key={d.key}>
+                  <Link to={`/policies/${d.key}`} className="hover:text-white">
+                    {d.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
+        {/* Named, contactable, and on the page rather than buried in a
+            document — which is what the IT Rules 2021 actually require. */}
         <div className="border-t border-white/10 mt-9 pt-6 text-xs leading-relaxed">
+          <div className="text-white font-bold text-sm mb-2">{t('footer.grievanceTitle')}</div>
+          <p className="text-white/60 max-w-3xl">{t('footer.grievanceBody')}</p>
+          <address className="not-italic mt-2 text-white/70">
+            <div>{officer}</div>
+            <div>
+              <a href={`mailto:${email}`} className="hover:text-white">
+                {email}
+              </a>
+            </div>
+            {business && (
+              <div className="text-white/50">
+                {business.address.city} {business.address.postalCode}, {business.address.state}
+              </div>
+            )}
+          </address>
+          <p className="mt-3 text-white/50">{t('footer.deleteData', { email })}</p>
+        </div>
+
+        <div className="border-t border-white/10 mt-6 pt-6 text-xs leading-relaxed">
           <p className="text-white/50">
             © {year} {business?.legalName || 'ServerPe App Solutions'}. {t('footer.rights')}{' '}
             {t('footer.trademark', { company: business?.legalName || 'ServerPe App Solutions' })}

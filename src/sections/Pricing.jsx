@@ -216,9 +216,8 @@ export default function Pricing({ plans, business }) {
             <h3 className="font-extrabold text-lg">{t('pricing.creditsTitle')}</h3>
             <p className="text-muted text-sm mt-2 leading-relaxed">{t('pricing.creditsBody')}</p>
             <a
-              href={`${policiesUrl}?lang=${lang}`}
-              target="_blank"
-              rel="noopener"
+              href={policiesUrl}
+             
               className="text-sm font-bold text-brand hover:underline mt-3 inline-block"
             >
               {t('pricing.readPolicy')}

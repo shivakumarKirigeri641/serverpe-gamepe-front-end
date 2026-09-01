@@ -37,7 +37,7 @@ export default function Trust() {
         </div>
 
         <Reveal className="text-center mt-8">
-          <a href={`${policiesUrl}?lang=${lang}`} target="_blank" rel="noopener" className="btn-ghost">
+          <a href={policiesUrl} className="btn-ghost">
             {t('trust.readPolicies')}
           </a>
         </Reveal>

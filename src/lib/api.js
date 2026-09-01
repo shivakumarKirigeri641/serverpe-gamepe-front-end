@@ -34,10 +34,23 @@ export const api = {
   // Player comments an operator has approved for publication. Never all
   // feedback — only what was explicitly published from the admin panel.
   testimonials: () => get('/testimonials'),
+  // The legal documents as data, rendered by this site at /policies. The words
+  // stay in the database and stay editable in the admin panel; only the
+  // address people see is ours rather than the API's.
+  legal: (lang = 'en') => get(`/legal?lang=${lang === 'hi' ? 'hi' : 'en'}`),
   health: () => get('/health'),
 };
 
-export const policiesUrl = `${API_BASE}${PUBLIC_PATH}/policies`;
+/**
+ * The policies live on this site, at /policies.
+ *
+ * They used to be served from the API host. A privacy policy on api.mastipe.in
+ * reads as somebody else's document — an unfamiliar host, not the address on
+ * our own stationery — and regulators, Meta and Razorpay all ask for a link on
+ * the company's own domain. The words still come from the database.
+ */
+export const policiesUrl = '/policies';
+export const policyUrl = (docKey) => `/policies/${docKey}`;
 
 /**
  * The interactive how-to-play page, served by the back-end.

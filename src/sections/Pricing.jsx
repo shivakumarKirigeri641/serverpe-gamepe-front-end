@@ -55,6 +55,26 @@ function rupees(plan) {
   return `₹${(plan.pricePaise / 100).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 }
 
+/**
+ * The trial's end date, in the reader's language.
+ *
+ * The back-end sends both the raw instant and an English label; formatting the
+ * instant here is what lets the Hindi page say the date in Hindi. The label is
+ * the fallback for a browser with no ICU data for hi-IN.
+ */
+function trialDate(trial, lang) {
+  if (!trial?.endsAt) return trial?.label ?? null;
+  try {
+    return new Intl.DateTimeFormat(lang === 'hi' ? 'hi-IN' : 'en-GB', {
+      timeZone: 'Asia/Kolkata',
+      day: 'numeric',
+      month: 'long',
+    }).format(new Date(trial.endsAt));
+  } catch {
+    return trial.label ?? null;
+  }
+}
+
 export default function Pricing({ plans, business }) {
   const { t, lang } = useI18n();
   const trialInfo = business?.trial ?? null;

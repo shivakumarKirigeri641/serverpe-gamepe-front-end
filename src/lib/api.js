@@ -50,19 +50,6 @@ export const api = {
  * the company's own domain. The words still come from the database.
  */
 export const policiesUrl = '/policies';
-
-/**
- * The demo film and its cover, served by the back-end.
- *
- * Hosted there rather than bundled here so a re-render replaces it everywhere
- * at once — this site, the WhatsApp demo page, anywhere else it is embedded —
- * without a front-end deploy.
- */
-const film = (lang) => (lang === 'hi' ? '-hi' : '');
-export const demoVideoUrl = (lang = 'en') =>
-  `${API_BASE}${PUBLIC_PATH}/media/mastipe-demo${film(lang)}.mp4`;
-export const demoPosterUrl = (lang = 'en') =>
-  `${API_BASE}${PUBLIC_PATH}/media/mastipe-demo${film(lang)}-cover.png`;
 export const policyUrl = (docKey) => `/policies/${docKey}`;
 
 /**

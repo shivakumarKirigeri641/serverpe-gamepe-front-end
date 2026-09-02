@@ -59,12 +59,6 @@ export const en = {
       { title: 'Friends tap and join', body: 'One tap opens WhatsApp with the join message ready. They press send and they are in.' },
       { title: 'Play on your own board', body: 'Numbers are called every few seconds. Your ticket fills in live on your own screen — find the number, tap, claim your prize.' },
     ],
-    filmLang: 'Watch in',
-    filmEn: 'English',
-    filmHi: 'हिंदी',
-    filmNote: 'The chat itself is in English, whichever film you watch.',
-    filmTitle: 'Watch a whole game, in three minutes',
-    filmBody: 'Four phones at once — one friend opens a room, three tap a link, and the bot takes over as caller. Watch the whole film: the six prizes and how to claim one are explained after the game.',
     demoTitle: 'Rather see it than read it?',
     demoBody:
       'Watch a round play out, see the chat from the first hi to the first number, and what each prize means on a real ticket.',

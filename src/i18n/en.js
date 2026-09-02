@@ -61,8 +61,8 @@ export const en = {
     ],
     demoTitle: 'Rather see it than read it?',
     demoBody:
-      'Watch a round play out, see the chat from the first hi to the first number, and what each prize means on a real ticket.',
-    demoCta: 'Watch the demo',
+      'Watch a round play out, from the first hi to the first number. Then try the interactive version, where a real ticket fills in as the numbers are called.',
+    demoCta: 'Try it yourself, step by step',
   },
 
   prizes: {

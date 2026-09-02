@@ -63,6 +63,24 @@ export const demoUrl = (lang) =>
   `${API_BASE}${PUBLIC_PATH}/demo${lang === 'hi' ? '?lang=hi' : ''}`;
 
 /**
+ * The demo video and its cover, served by the back-end from src/media.
+ *
+ * Pointed at the API rather than copied into this site's /public for the same
+ * reason the demo page itself lives there: one file, one place. A copy here
+ * would be a second thing to remember on every re-record, and the day somebody
+ * forgot, the site and WhatsApp would be showing different videos.
+ *
+ * The back-end serves these through express.static, which answers Range
+ * requests — that is what lets a phone seek, and what stops some browsers
+ * refusing to start playback at all.
+ */
+export const demoVideoUrl = (lang) =>
+  `${API_BASE}${PUBLIC_PATH}/media/mastipe-demo${lang === 'hi' ? '-hi' : ''}.mp4`;
+
+export const demoPosterUrl = (lang) =>
+  `${API_BASE}${PUBLIC_PATH}/media/mastipe-demo${lang === 'hi' ? '-hi' : ''}-cover.png`;
+
+/**
  * Runs a fetch and falls back to a sensible default.
  *
  * A marketing page must render even when the API is down or still waking up —

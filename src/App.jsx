@@ -142,7 +142,7 @@ export default function App() {
 
       {/* Always-reachable action on a phone, where the header button scrolls away. */}
       <a
-        href={waLink('Hi')}
+        href={waLink('Hi')} data-cta="mobile-sticky"
         className="sm:hidden fixed bottom-4 inset-x-4 z-30 btn-wa shadow-lift"
         aria-label={`${t('hero.cta')}, ${WHATSAPP_DISPLAY}`}
       >

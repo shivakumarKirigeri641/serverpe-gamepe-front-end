@@ -46,7 +46,7 @@ export default function Footer({ business, brand }) {
                 words that sit under the logo and in the link preview. The hero
                 is free to say something more specific; this is the constant. */}
             <p className="text-sm mt-2 leading-relaxed">{brand?.tagline || t('hero.tagline')}</p>
-            <a href={waLink('Hi')} className="btn-wa mt-4 !px-5 !py-2.5 !text-sm">
+            <a href={waLink('Hi')} data-cta="footer-button" className="btn-wa mt-4 !px-5 !py-2.5 !text-sm">
               {t('hero.cta')}
             </a>
           </div>
@@ -80,7 +80,7 @@ export default function Footer({ business, brand }) {
                 </a>
               </li>
               <li>
-                <a href={waLink('Hi')} className="hover:text-white">
+                <a href={waLink('Hi')} data-cta="footer-link" className="hover:text-white">
                   {t('footer.messageUs')}
                 </a>
               </li>

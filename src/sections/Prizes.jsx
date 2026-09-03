@@ -194,7 +194,7 @@ export default function Prizes() {
           <p className="text-center text-sm text-muted max-w-xl mx-auto">{t('prizes.note')}</p>
 
           <div className="text-center mt-6">
-            <a href={demoUrl(lang)} target="_blank" rel="noreferrer" className="btn-ghost">
+            <a href={demoUrl(lang)} data-cta="demo-prizes" target="_blank" rel="noreferrer" className="btn-ghost">
               {t('prizes.demoCta')}
             </a>
           </div>

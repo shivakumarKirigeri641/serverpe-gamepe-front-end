@@ -59,7 +59,7 @@ export default function HowItWorks() {
 
             <div className="text-center">
               <a
-                href={demoUrl(lang)}
+                href={demoUrl(lang)} data-cta="demo-how-it-works"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-brand mt-5"

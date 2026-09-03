@@ -94,7 +94,7 @@ export default function Hero({ brand }) {
           <p className="mt-3 lede">{t('hero.sub')}</p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <a href={waLink('Hi')} className="btn-wa">
+            <a href={waLink('Hi')} data-cta="hero" className="btn-wa">
               {t('hero.cta')}
             </a>
             <a href="#how" className="btn-ghost">

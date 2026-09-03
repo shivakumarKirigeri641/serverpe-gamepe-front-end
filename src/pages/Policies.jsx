@@ -169,7 +169,7 @@ export default function Policies() {
 
             <p className="text-sm text-muted mt-10">
               {t('policies.contact')}{' '}
-              <a href={waLink('Hi')} className="text-brand font-bold hover:underline">
+              <a href={waLink('Hi')} data-cta="policies" className="text-brand font-bold hover:underline">
                 WhatsApp
               </a>
               .

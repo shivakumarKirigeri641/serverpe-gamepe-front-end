@@ -57,7 +57,7 @@ export default function Header({ brand }) {
             </a>
           ))}
           <a
-            href={demoUrl(lang)}
+            href={demoUrl(lang)} data-cta="demo-header"
             target="_blank"
             rel="noreferrer"
             className="text-sm font-semibold text-ink/80 hover:text-brand"
@@ -65,7 +65,7 @@ export default function Header({ brand }) {
             {t('nav.demo')}
           </a>
           <LanguageSwitch />
-          <a href={waLink('Hi')} className="btn-wa !px-5 !py-2.5 !text-sm">
+          <a href={waLink('Hi')} data-cta="header" className="btn-wa !px-5 !py-2.5 !text-sm">
             {t('nav.play')}
           </a>
         </nav>
@@ -88,7 +88,7 @@ export default function Header({ brand }) {
             </a>
           ))}
           <a
-            href={demoUrl(lang)}
+            href={demoUrl(lang)} data-cta="demo-header-menu"
             target="_blank"
             rel="noreferrer"
             onClick={() => setOpen(false)}
@@ -97,7 +97,7 @@ export default function Header({ brand }) {
             {t('nav.demo')}
           </a>
           <LanguageSwitch className="w-full !py-2.5 block" />
-          <a href={waLink('Hi')} className="btn-wa w-full">
+          <a href={waLink('Hi')} data-cta="header-menu" className="btn-wa w-full">
             {t('nav.play')}
           </a>
         </div>

@@ -122,7 +122,7 @@ export default function Pricing({ plans, business }) {
               <h3 className="font-extrabold text-2xl text-brand mt-2">{trial.name}</h3>
               <div className="text-5xl font-extrabold mt-2">{trial.price}</div>
               <p className="text-muted text-sm mt-3 leading-relaxed">{trial.tagline}</p>
-              <a href={waLink('Hi')} className="btn-wa mt-6">
+              <a href={waLink('Hi')} data-cta="pricing-trial" className="btn-wa mt-6">
                 {t('pricing.start')}
               </a>
             </div>
@@ -204,7 +204,7 @@ export default function Pricing({ plans, business }) {
                 {trialDay ? t('pricing.freeTitle', { date: trialDay }) : t('pricing.title')}
               </h3>
               <p className="text-muted mt-3 leading-relaxed">{t('pricing.freeBody')}</p>
-              <a href={waLink('Hi')} className="btn-wa mt-6">
+              <a href={waLink('Hi')} data-cta="pricing-sponsor" className="btn-wa mt-6">
                 {t('pricing.start')}
               </a>
             </div>

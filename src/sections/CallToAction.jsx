@@ -13,7 +13,7 @@ export default function CallToAction() {
             {t('cta.title')}
           </h2>
           <p className="mt-4 text-white/85 text-lg">{t('cta.sub')}</p>
-          <a href={waLink('Hi')} className="btn bg-white text-brand hover:bg-cream mt-7 shadow-lift">
+          <a href={waLink('Hi')} data-cta="closing" className="btn bg-white text-brand hover:bg-cream mt-7 shadow-lift">
             {t('cta.button')}
           </a>
           <p className="mt-4 text-sm text-white/60">{t('cta.reassure')}</p>

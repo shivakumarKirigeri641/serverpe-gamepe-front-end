@@ -1,20 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  One page, deliberately.
+  Every page on mastipe.in that is worth indexing.
 
-  The site is a single scrolling page, so listing #how or #pricing here would be
-  telling a crawler about anchors it already has. The Hindi version is the same
-  URL with the language chosen in the page, so it is declared as an alternate
-  rather than a second entry.
+  The marketing page is one scrolling document, so its sections are anchors and
+  are deliberately not listed - a crawler already has them. The policies are
+  different: each is its own route, each is linked to directly by Meta,
+  Razorpay and the WhatsApp consent card, and each is the kind of page somebody
+  searches for by name.
+
+  lastmod is maintained by hand. Automating it from the database was tempting -
+  the policy text lives there now - but a sitemap that reports "changed today"
+  on every deploy teaches crawlers to ignore the field. It should move when the
+  words move.
+
+  The Hindi site is the same URL with the language chosen in the page, so it is
+  declared as an alternate rather than a second entry.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://mastipe.in/</loc>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://mastipe.in/"/>
     <xhtml:link rel="alternate" hreflang="hi-IN" href="https://mastipe.in/?lang=hi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mastipe.in/"/>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://mastipe.in/policies</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mastipe.in/policies/terms</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://mastipe.in/policies/privacy</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://mastipe.in/policies/data-deletion</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://mastipe.in/policies/fair-play</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>

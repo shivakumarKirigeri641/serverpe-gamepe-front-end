@@ -1,13 +1,23 @@
 # mastipe.in — the public marketing site.
 #
 # Everything here is meant to be found. The parts of the product that are not
-# public live on api.mastipe.in, which has its own robots.txt and marks the
-# private pages noindex as well.
+# public live on api.mastipe.in, which is not linked from here and is not
+# something a crawler has any reason to reach.
 
 User-agent: *
 Allow: /
 
-# The interactive how-to-play page and the policies are served by the API, so
-# they are listed in the sitemap on that host rather than this one.
+# Player-facing links carry a signed token that names one person. They are not
+# secret in the sense of being a vulnerability - the signature is what protects
+# them - but they are single-player URLs with no value in an index, and a
+# crawler following one would count as a board open in the analytics.
+Disallow: /board/
+Disallow: /report/
+Disallow: /history/
+Disallow: /feedback/
+Disallow: /support/
+
+# One sitemap. There used to be a second, pointing at the API, from when the
+# policies were served there; it 404'd from the moment the policies moved to
+# this domain, and a dead sitemap reference is worse than no reference.
 Sitemap: https://mastipe.in/sitemap.xml
-Sitemap: https://api.mastipe.in/serverpe/platform/mastipe/v1/public/sitemap.xml

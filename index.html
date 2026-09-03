@@ -7,6 +7,14 @@
     <title>MastiPe — Tambola with your friends, on WhatsApp</title>
     <meta name="description" content="Play Tambola (Housie) with your friends on WhatsApp. No app to install, no sign-up. Free to play. Entertainment only — no betting, no money." />
     <meta name="theme-color" content="#7d0f22" />
+
+    <!-- Static icons. App.jsx sets the same ones from the brand manifest for
+         browsers, but that runs after mount - by which time the tab has
+         already shown the default blank page icon. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href="https://mastipe.in/" />
 
     <!-- Static, because WhatsApp/Facebook scrapers never run JS. Helmet also
@@ -18,16 +26,18 @@
     <meta property="og:description" content="Grab your friends, grab a ticket. Tambola on WhatsApp — no app to install, no sign-up, free to play." />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:locale:alternate" content="hi_IN" />
-    <!-- Served by the API, so there is one image, not two to keep in step. -->
-    <meta property="og:image" content="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/media/mastipe-demo-cover.png" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="720" />
+    <!-- Served by the API, so the logo set lives in one place: replacing a
+         file in the back end's src/images updates the site, the panel and
+         the link previews together. -->
+    <meta property="og:image" content="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/og-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="MastiPe — Tambola on WhatsApp" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="MastiPe — Tambola with your friends, on WhatsApp" />
     <meta name="twitter:description" content="Grab your friends, grab a ticket. Tambola on WhatsApp — no app to install, no sign-up, free to play." />
-    <meta name="twitter:image" content="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/media/mastipe-demo-cover.png" />
+    <meta name="twitter:image" content="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/twitter-1200x600.png" />
 
     <!-- Modest on purpose: no review/rating markup without meeting Google's
          review-snippet rules. -->
@@ -40,7 +50,7 @@
             "@id": "https://mastipe.in/#organization",
             "name": "ServerPe App Solutions",
             "url": "https://mastipe.in/",
-            "logo": "https://api.mastipe.in/serverpe/platform/mastipe/v1/public/media/mastipe-demo-cover.png"
+            "logo": "https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/logo-horizontal-light-1000.png"
           },
           {
             "@type": "WebSite",

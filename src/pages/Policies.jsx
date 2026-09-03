@@ -74,7 +74,14 @@ export default function Policies() {
     };
   }, [lang]);
 
-  const current = doc ? docs?.find((d) => d.key === doc) : null;
+  // Underscore and hyphen are the same document. /policies/data_deletion was
+  // registered with Meta before the keys were hyphenated, and a link a
+  // reviewer already holds must not 404.
+  const sameKey = (a, b) =>
+    String(a ?? '').replace(/_/g, '-').toLowerCase() ===
+    String(b ?? '').replace(/_/g, '-').toLowerCase();
+
+  const current = doc ? docs?.find((d) => sameKey(d.key, doc)) : null;
   const missing = Boolean(doc) && docs !== null && !current;
 
   return (

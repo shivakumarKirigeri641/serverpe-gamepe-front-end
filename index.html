@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>MastiPe — Tambola with your friends, on WhatsApp</title>
-    <meta name="description" content="Play Tambola (Housie) with your friends on WhatsApp. No app to install, no sign-up. Free to play. Entertainment only — no betting, no money." />
+    <title>MastiPe — Tambola &amp; Tap Bakra, played on WhatsApp</title>
+    <meta name="description" content="Two free games on WhatsApp. Play Tambola (Housie) with up to 200 friends, or Tap Bakra on your own in sixty seconds. No app to install, no sign-up. Entertainment only — no betting, no money." />
     <meta name="theme-color" content="#7d0f22" />
 
     <!-- Static icons. App.jsx sets the same ones from the brand manifest for
@@ -22,8 +22,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MastiPe" />
     <meta property="og:url" content="https://mastipe.in/" />
-    <meta property="og:title" content="MastiPe — Tambola with your friends, on WhatsApp" />
-    <meta property="og:description" content="Grab your friends, grab a ticket. Tambola on WhatsApp — no app to install, no sign-up, free to play." />
+    <meta property="og:title" content="MastiPe — Tambola &amp; Tap Bakra, played on WhatsApp" />
+    <meta property="og:description" content="Two games, one WhatsApp number. Tambola with the whole family, or Tap Bakra on your own in a minute. No app, no sign-up." />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:locale:alternate" content="hi_IN" />
     <!-- Served by the API, so the logo set lives in one place: replacing a
@@ -35,8 +35,8 @@
     <meta property="og:image:alt" content="MastiPe — Tambola on WhatsApp" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MastiPe — Tambola with your friends, on WhatsApp" />
-    <meta name="twitter:description" content="Grab your friends, grab a ticket. Tambola on WhatsApp — no app to install, no sign-up, free to play." />
+    <meta name="twitter:title" content="MastiPe — Tambola &amp; Tap Bakra, played on WhatsApp" />
+    <meta name="twitter:description" content="Two games, one WhatsApp number. Tambola with the whole family, or Tap Bakra on your own in a minute." />
     <meta name="twitter:image" content="https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/twitter-1200x600.png" />
 
     <!-- Modest on purpose: no review/rating markup without meeting Google's
@@ -53,11 +53,72 @@
             "logo": "https://api.mastipe.in/serverpe/platform/mastipe/v1/public/images/logo-horizontal-light-1000.png"
           },
           {
+            "@type": "Game",
+            "@id": "https://mastipe.in/#tambola",
+            "name": "Tambola on MastiPe",
+            "alternateName": ["Housie", "Tambola", "MastiPe Tambola"],
+            "description": "Classic Indian housie for up to 200 players, called automatically, played in a browser from a WhatsApp link. Six prizes: Jaldi 5, Top Line, Middle Line, Bottom Line, Corners and Full House.",
+            "url": "https://mastipe.in/#games",
+            "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 200 },
+            "gamePlatform": ["WhatsApp", "Web browser"],
+            "publisher": { "@id": "https://mastipe.in/#organization" },
+            "inLanguage": ["en-IN", "hi-IN"],
+            "isAccessibleForFree": true
+          },
+          {
+            "@type": "Game",
+            "@id": "https://mastipe.in/#tapbakra",
+            "name": "Tap Bakra",
+            "description": "A sixty-second reaction game. Ten questions, five seconds each — tap the right option, and sometimes the right answer is to tap nothing at all.",
+            "url": "https://mastipe.in/#games",
+            "numberOfPlayers": { "@type": "QuantitativeValue", "value": 1 },
+            "gamePlatform": ["WhatsApp", "Web browser"],
+            "publisher": { "@id": "https://mastipe.in/#organization" },
+            "inLanguage": ["en-IN", "hi-IN"],
+            "isAccessibleForFree": true
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://mastipe.in/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Do I need to install an app to play?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. You message MastiPe on WhatsApp and play in your phone's browser. There is nothing to download and no account to create." }
+              },
+              {
+                "@type": "Question",
+                "name": "How many people can play Tambola at once?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Up to 200 players in a single game. The host shares one link with the group and everyone plays on their own phone." }
+              },
+              {
+                "@type": "Question",
+                "name": "Is MastiPe free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Both games are free to play during the trial, with no payment details required." }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there any betting or real money involved?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. MastiPe is entertainment only. There is no betting, no wagering and no cash prizes, and nothing won in a game has monetary value." }
+              },
+              {
+                "@type": "Question",
+                "name": "What is Tap Bakra?",
+                "acceptedAnswer": { "@type": "Answer", "text": "A sixty-second reaction game. You get ten instructions, five seconds each — tap the right option before the clock runs out. Sometimes the instruction tells you not to tap at all, and that is where most people slip." }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I play in Hindi?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Both games play in Hindi or English, and Tap Bakra shows numbers in Devanagari when you play in Hindi." }
+              }
+            ]
+          },
+          {
             "@type": "WebSite",
             "@id": "https://mastipe.in/#website",
             "url": "https://mastipe.in/",
             "name": "MastiPe",
-            "description": "Play Tambola (Housie) with your friends on WhatsApp. No app to install, no sign-up.",
+            "description": "Two free games on WhatsApp: Tambola for up to 200 friends, and Tap Bakra in sixty seconds. No app, no sign-up.",
             "publisher": { "@id": "https://mastipe.in/#organization" },
             "inLanguage": ["en-IN", "hi-IN"]
           }

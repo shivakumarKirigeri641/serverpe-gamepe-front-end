@@ -90,8 +90,22 @@ export default function Hero({ brand }) {
             {t('hero.tagline')}
           </h1>
 
-          <p className="mt-4 text-lg sm:text-xl text-ink/80 font-medium">{t('hero.title')}</p>
-          <p className="mt-3 lede">{t('hero.sub')}</p>
+          {/*
+            The games, listed rather than described. A visitor deciding whether to
+            send a message wants to know what is on offer, not a paragraph about it -
+            the Games section below carries the detail.
+          */}
+          <ul className="mt-6 space-y-2.5">
+            {t('hero.games').map((g) => (
+              <li key={g.name} className="flex items-start gap-3 text-base sm:text-lg">
+                <span className="text-xl leading-tight" aria-hidden="true">{g.icon}</span>
+                <span className="text-ink/85">
+                  <b className="font-extrabold text-ink">{g.name}</b>
+                  {g.line ? <span className="text-ink/70"> — {g.line}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-7 flex flex-wrap gap-3">
             <a href={waLink('Hi')} data-cta="hero" className="btn-wa">

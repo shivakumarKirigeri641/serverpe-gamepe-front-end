@@ -35,14 +35,54 @@ export const en = {
     banner: 'For Entertainment Only · No betting · No money',
   },
 
+  games: {
+    eyebrow: 'Two games',
+    title: 'One number. Two very different games.',
+    lede: 'Say hi once and both are yours. Pick the long social one, or the sixty-second one that makes a fool of you.',
+    footnote: 'Both games are entertainment only. No betting, no wagering, no cash prizes.',
+    tambola: {
+      badge: 'The classic',
+      title: 'Tambola',
+      lede: 'Housie the way it is played at every kitty party — except nobody has to sit out and call the numbers.',
+      points: [
+        'Up to 200 players in one game',
+        'All six prizes: Jaldi 5, the three lines, Corners, Full House',
+        'Numbers called for you, one every 12 seconds',
+        'Claims checked automatically — a wrong tap costs you nothing',
+      ],
+      cta: 'Start a Tambola game',
+    },
+    bakra: {
+      badge: 'Sixty seconds',
+      title: 'Tap Bakra',
+      lede: 'Tap fast, think faster. Ten questions, five seconds each — and sometimes the right answer is to tap nothing at all.',
+      points: [
+        'One minute, on your own, any time',
+        'Speed counts — but only if you are right',
+        'The options shuffle under your thumb when you least expect it',
+        'A full report at the end: accuracy, reaction time, where you slipped',
+      ],
+      cta: 'Play Tap Bakra',
+      motifInstruction: "DON'T TAP IF YOU SEE MANGO",
+      motifOptions: ['GUAVA', 'MANGO', 'TABLE'],
+    },
+  },
+
   hero: {
     eyebrow: 'Free to play',
-    title: 'Tambola with your friends, right here on WhatsApp.',
-    sub: 'No app to download. No sign-up. Start a room, share one link, and play — everyone plays on their own phone.',
+    title: 'Two games. One WhatsApp number. Nothing to install.',
+    sub: "Send one 'hi'. Everyone plays on their own phone — the whole family at Tambola, or just you against the clock in Tap Bakra.",
     cta: 'Play on WhatsApp',
     secondary: 'See how it works',
-    reassure: 'No app · No sign-up · No betting, no money',
-    tagline: 'Play Tambola together, have Masti.',
+    reassure: 'No app. No downloads. Just play.',
+    tagline: 'Your next game is already on WhatsApp.',
+    // The games as a list rather than a sentence: three lines say what they
+    // are faster than a paragraph about them ever did.
+    games: [
+      { icon: '🎯', name: 'Tap Bakra', line: "Think fast. Don't fall for the trap." },
+      { icon: '🎱', name: 'Tambola', line: 'Play Tambola with your friends on WhatsApp.' },
+      { icon: '🎮', name: 'More games coming.', line: '' },
+    ],
     ticketRoom: 'Room KFT7QM · Ticket 1',
     ticketMarked: '6 of 15 marked',
     ticketCalled: '24 of 90 called',

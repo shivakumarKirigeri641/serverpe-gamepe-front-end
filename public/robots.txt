@@ -16,6 +16,17 @@ Disallow: /report/
 Disallow: /history/
 Disallow: /feedback/
 Disallow: /support/
+# Tap Bakra rounds are the same shape: one signed link, one player, one round.
+Disallow: /fatafat/
+
+# Query strings that produce the same page.
+#
+# ?lang=hi is the Hindi site and IS worth indexing - it is declared as an
+# hreflang alternate in the sitemap. Anything else appended to the homepage is
+# a campaign tag producing a duplicate of a page already listed.
+Disallow: /*?utm_
+Disallow: /*?gclid=
+Disallow: /*?fbclid=
 
 # One sitemap. There used to be a second, pointing at the API, from when the
 # policies were served there; it 404'd from the moment the policies moved to
